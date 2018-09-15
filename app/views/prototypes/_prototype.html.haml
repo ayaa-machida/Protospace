@@ -1,7 +1,8 @@
 .col-sm-4.col-md-3.proto-content
   .prototype-one
-    .dropdown.dropdown_menu_location.open
-      %button#dropdownMenu.btn.btn-default.dropdown-toggle{"aria-expanded" => "true", "data-toggle" => "dropdown", :type => "button"} Action
+    .dropdown.dropdown_menu_location
+      %button#dropdownMenu.btn.btn-default.dropdown-toggle{"aria-expanded" => "true", "data-toggle" => "dropdown", :type => "button"}
+        Action
       %ul.dropdown-menu{"aria-labelledby" => "dropdownMenu1"}
         %li
           %a{"data-method" => "delete", :href => "/prototypes/#{prototype.id}", :rel => "nofollow"} Delete
