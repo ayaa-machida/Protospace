@@ -1,0 +1,7 @@
+= form_tag("/comments/#{@prototype.id}/update") do
+  %form
+    .form-group
+      %label{:for => "comments"} 編集する
+      %textarea.form-control{:name => "content"}= @prototype.content
+    / form-group
+    %button.btn.btn-primary{:type => "submit"} 保存

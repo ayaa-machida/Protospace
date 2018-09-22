@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160405022520) do
+ActiveRecord::Schema.define(version: 20180921101431) do
 
   create_table "captured_images", force: :cascade do |t|
     t.string  "content",      limit: 255
@@ -20,6 +20,44 @@ ActiveRecord::Schema.define(version: 20160405022520) do
   end
 
   add_index "captured_images", ["prototype_id"], name: "index_captured_images_on_prototype_id", using: :btree
+
+  create_table "comments", force: :cascade do |t|
+    t.string   "content",      limit: 255
+    t.integer  "user_id",      limit: 4
+    t.integer  "prototype_id", limit: 4
+    t.integer  "post_id",      limit: 4
+    t.integer  "parent_id",    limit: 4
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "comments_copy", force: :cascade do |t|
+    t.string   "content",       limit: 255
+    t.integer  "user_id",       limit: 4
+    t.integer  "post_id",       limit: 4
+    t.integer  "parent_id",     limit: 4
+    t.integer  "replies_count", limit: 4
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+  end
+
+  add_index "comments_copy", ["parent_id"], name: "index_comments_on_parent_id", using: :btree
+  add_index "comments_copy", ["post_id"], name: "index_comments_on_post_id", using: :btree
+  add_index "comments_copy", ["user_id"], name: "index_comments_on_user_id", using: :btree
+
+  create_table "comments_copy_copy", force: :cascade do |t|
+    t.string   "content",       limit: 255
+    t.integer  "user_id",       limit: 4
+    t.integer  "post_id",       limit: 4
+    t.integer  "parent_id",     limit: 4
+    t.integer  "replies_count", limit: 4
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+  end
+
+  add_index "comments_copy_copy", ["parent_id"], name: "index_comments_on_parent_id", using: :btree
+  add_index "comments_copy_copy", ["post_id"], name: "index_comments_on_post_id", using: :btree
+  add_index "comments_copy_copy", ["user_id"], name: "index_comments_on_user_id", using: :btree
 
   create_table "prototypes", force: :cascade do |t|
     t.string   "title",      limit: 255
@@ -56,5 +94,7 @@ ActiveRecord::Schema.define(version: 20160405022520) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   add_foreign_key "captured_images", "prototypes"
+  add_foreign_key "comments_copy", "users", name: "comments_copy_ibfk_1"
+  add_foreign_key "comments_copy_copy", "users", name: "comments_copy_copy_ibfk_1"
   add_foreign_key "prototypes", "users"
 end

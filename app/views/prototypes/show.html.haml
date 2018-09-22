@@ -37,3 +37,25 @@
           %a{href: "#", class: "btn btn-default"} iPad
         %li
           %a{href: "#", class: "btn btn-default"} wireframe
+  .content
+  %h5 Comments ()
+  - if @prototype.comments
+    - @comments.each do |comment|
+      %p
+      .media
+        .media-left
+          = link_to user_path(@prototype.user) do
+            = image_tag(@prototype.user.avatar.thumb, alt: "profile_photo", class: "media-object", style: "width: 64px; height: 64px;")
+        %strong
+        .media-body
+        = link_to comment.user.name, "/users/#{comment.user_id}", class: :cmtname
+        = comment.content
+        = link_to ' < 削除する > ', [@prototype, comment], method: :delete, :class => "waves-effect waves-light btn-small cmt-delete", date: { confirm: '削除しますか？' }
+        = link_to ' < 編集する > ', "/comments/#{@prototype.id}/edit", method: :get, :class => "waves-effect waves-light btn-small cmt-edit"
+.container
+  / ここからフォーム
+  %h6 Write a comment
+  - if current_user
+    = form_tag("/prototypes/#{@prototype.id}/comments",  method: :post,  id: "new_comment" ) do
+      %textarea.form-control{:cols => "30", :name => "content", :placeholder => "Your comments", :rows => "2"}
+      %input{:type => "submit", :value => "COMMENT"}/

@@ -3,7 +3,7 @@ class CreatePrototypes < ActiveRecord::Migration
     create_table :prototypes do |t|
       t.string :title
       t.string :catch_copy
-      t.text   :concept
+      t.text   :content
       t.references :user, index: true, foreign_key: true
 
       t.timestamps null: false

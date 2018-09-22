@@ -5,8 +5,8 @@ class UsersController < ApplicationController
     @prototypes = @user.prototypes
   end
 
-  def edit
-  end
+def edit
+    end
 
   def update
     @user.update(user_params)
