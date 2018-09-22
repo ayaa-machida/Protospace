@@ -8,7 +8,6 @@ class Prototype < ActiveRecord::Base
   validates :title,
             :catch_copy,
             :concept,
-            :content,
             presence: true
 
   def reject_sub_images(attributed)

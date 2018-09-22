@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   root 'prototypes#index'
   get "comments/:id/edit" => "comments#edit"
   post "comments/:id/update" => "comments#update"
-       resources :prototypes, only: [:index, :new, :create, :show] do
+    resources :prototypes do
     resources :comments, only: [:create, :destroy, :update, :edit]
   end
   resources :users, only: [:show, :update, :edit]
