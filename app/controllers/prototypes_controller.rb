@@ -19,7 +19,35 @@ class PrototypesController < ApplicationController
      end
   end
 
+  def destroy
+      prototype = Prototype.find(params[:id])
+      if prototype.user_id == current_user.id
+        prototype.destroy
+      end
+    end
+
+    def edit
+      @prototype = Prototype.find(params[:id])
+    end
+
+   def update
+      @prototype = Prototype.find(params[:id])
+      if prototypes.user_id == current_user.id
+        prototype.update(prototype_params)
+      end
+    end
+  # def update
+  #   @prototype = Prototype.find_by(id: params[:id])
+  #   @prototype.content = params[:content]
+  #   @prototype.save
+  #   redirect_to("/")
+  # end
+
+
+
   def show
+    @prototype = Prototype.find(params[:id])
+    @comments = @prototype.comments.includes(:user)
   end
 
   private
@@ -33,7 +61,10 @@ class PrototypesController < ApplicationController
       :title,
       :catch_copy,
       :concept,
+      :content,
       :user_id,
+
+      :comments,
       captured_images_attributes: [:content, :status]
     )
   end
