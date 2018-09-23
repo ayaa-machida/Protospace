@@ -1,8 +1,6 @@
 $(function(){
   var num = 0
-  var appendNum = $('.likeNum').append(num);
-
-  appendNum
+  $('.likeNum').append(num);
 
   $('.addLike').on('click', function(num){
     // console.log("hi");
